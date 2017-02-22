@@ -14,9 +14,9 @@ $ docker run \
 --volume /local/log/storage:/var/log \
 docker-postfix my_domain_name.com
 ```
-This will connect SMTP port 25 to host and mount the folders as per examples given above.
+This will connect SMTP port 25 to the host and mount volume folders as in the example given above.
 
-__NB.__ If you are using SELinux, make sure you set the right context to the volume folders.
+__NB.__ If you are using SELinux, make sure you have set the right context to the volume folders.
 
 # Test email
 To make sure the email server is working, send a test email via the command line:
