@@ -2,7 +2,7 @@ FROM debian:stable-slim
 MAINTAINER Dmitrii Ageev <d.ageev@gmail.com>
 
 # Declare variables
-ENV DOMAINNAME "example.com"
+ARG DOMAINNAME="example.com"
 ENV HOSTNAME "mail.${DOMAINNAME}"
 ## Localhost and Docker networks only
 ENV MY_NETWORKS "127.0.0.0/8, 172.17.0.0/16, [::1]/128, [fe80::]/64"
