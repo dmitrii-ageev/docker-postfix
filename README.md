@@ -26,3 +26,8 @@ echo -e "To: Bob <bob@example.com>\nFrom: Bill <bill@example.com>\nSubject: Test
 # Test email with TLS
 echo -e "To: Bob <bob@example.com>\nFrom: Bill <bill@example.com>\nSubject: Test email\n\nThis is a test email message" | mailx -v -S smtp-use-starttls -S ssl-verify=ignore -S smtp=smtp://... -S from=bill@example.com -t
 
+# TODO
+
+* Add TLS support
+* Add SASL support
+* Change base container from __debian-slim__ to __alpine__.
