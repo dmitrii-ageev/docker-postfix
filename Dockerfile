@@ -3,17 +3,17 @@ MAINTAINER Dmitrii Ageev <d.ageev@gmail.com>
 
 # Declare variables
 ARG DOMAINNAME="example.com"
-ENV HOSTNAME "mail.${DOMAINNAME}"
+ENV SERVERNAME "mail.${DOMAINNAME}"
 ## Localhost and Docker networks only
 ENV MY_NETWORKS "127.0.0.0/8, 172.17.0.0/16, [::1]/128, [fe80::]/64"
-ENV MY_DESTINATION "localhost, localhost.localdomain, ${HOSTNAME}, ${DOMAINNAME}"
+ENV MY_DESTINATION "localhost, localhost.localdomain, ${SERVERNAME}, ${DOMAINNAME}"
 
 # Install Postfix
 ## Create and Load config for apt
-RUN echo ${HOSTNAME} > /etc/hostname; \
-    echo ${HOSTNAME} > /etc/mailname; \
+RUN echo ${SERVERNAME} > /etc/hostname; \
+    echo ${SERVERNAME} > /etc/mailname; \
     echo "postfix postfix/main_mailer_type string Internet site" > preseed.txt; \
-    echo "postfix postfix/mailname string ${HOSTNAME}" >> preseed.txt
+    echo "postfix postfix/mailname string ${SERVERNAME}" >> preseed.txt
 RUN debconf-set-selections preseed.txt
 
 ## Install
@@ -26,12 +26,12 @@ RUN apt-get -q update; \
 ADD files/aliases /etc/aliases
 RUN newaliases
 
-RUN postconf -e myhostname="${HOSTNAME}"; \
+RUN postconf -e myhostname="${SERVERNAME}"; \
     postconf -e mydestination="${MY_DESTINATION}"; \
     postconf -e inet_interfaces="all"; \
     postconf -e mail_spool_directory="/var/mail/"; \
     postconf -e mailbox_command=""; \
-    postconf -e smtpd_banner="${HOSTNAME} ESMTP"; \
+    postconf -e smtpd_banner="${SERVERNAME} ESMTP"; \
     postconf -e alias_database="hash:/etc/aliases"; \
     postconf -e alias_maps="hash:/etc/aliases"; \
 # Don't talk to mail systems that don't know their own hostname or have an invalid hostname.
