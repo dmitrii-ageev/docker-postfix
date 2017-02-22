@@ -3,7 +3,14 @@
 # Domain name can be passes as the first argument to this script
 if [ ! -z "$1" ]; then
   DOMAINNAME="$1"
-  SERVERNAME="mail.${DOMAINNAME}"
+
+  # Hostname can be passed as the second argumanet to this script
+  if [ ! -z "$2" ]; then
+    SERVERNAME="$2"
+  else
+    SERVERNAME="mail.${DOMAINNAME}"
+  fi
+
   MY_DESTINATION="localhost, localhost.localdomain, ${SERVERNAME}, ${DOMAINNAME}"
   
   echo ${SERVERNAME} > /etc/hostname
