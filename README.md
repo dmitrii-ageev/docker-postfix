@@ -1,4 +1,4 @@
-# What is it
+# What is this
 This Dockerfile (available as dmitriiageev/postfix) gives you Postfix email server.
 Postfix is a free and open-source mail transfer agent (MTA).
 
@@ -15,6 +15,7 @@ $ docker run \
 docker-postfix my_domain_name.com
 ```
 This will connect SMTP port 25 to host and mount the folders as per examples given above.
+
 __NB.__ If you are using SELinux, make sure you set the right context to the volume folders.
 
 # Test email
