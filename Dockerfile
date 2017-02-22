@@ -2,8 +2,9 @@ FROM debian:stable-slim
 MAINTAINER Dmitrii Ageev <d.ageev@gmail.com>
 
 # Declare variables
+## You can specify the DOMAINNAME and SERVERNAME during container build time with the --build-arg option
 ARG DOMAINNAME="example.com"
-ENV SERVERNAME "mail.${DOMAINNAME}"
+ARG SERVERNAME="mail.${DOMAINNAME}"
 ## Localhost and Docker networks only
 ENV MY_NETWORKS "127.0.0.0/8, 172.17.0.0/16, [::1]/128, [fe80::]/64"
 ENV MY_DESTINATION "localhost, localhost.localdomain, ${SERVERNAME}, ${DOMAINNAME}"
