@@ -12,7 +12,7 @@ $ docker run \
 --publish 25:25/tcp \
 --volume /local/maildir:/var/mail \
 --volume /local/log/storage:/var/log \
-docker-postfix my_domain_name.com
+docker-postfix my_domain_name.com my_host.domain_name.com
 ```
 This will connect SMTP port 25 to the host and mount volume folders as in the example given above.
 
