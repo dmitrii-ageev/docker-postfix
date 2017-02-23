@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 # Domain name can be passes as the first argument to this script
 if [ ! -z "$1" ]; then
