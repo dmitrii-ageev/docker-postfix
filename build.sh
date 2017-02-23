@@ -9,9 +9,9 @@ else
   MINOR=$(echo $PREVIOUS_VERSION | sed "s/[0-9]\.\([0-9]\)\.[0-9]/\1/")
   BUILD=$(echo $PREVIOUS_VERSION | sed "s/[0-9]\.[0-9]\.\([0-9]\)/\1/")
   if [ $BUILD -eq 9 ]; then
-    $BUILD=0
+    BUILD=0
     if [ $MINOR -eq 9 ]; then
-      $MINOR=0
+      MINOR=0
       let MAJOR=$MAJOR+1
     else
       let MINOR=$MINOR+1
