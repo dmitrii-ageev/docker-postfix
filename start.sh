@@ -21,5 +21,10 @@ if [ ! -z "$1" ]; then
   postconf -e smtpd_banner="${SERVERNAME} ESMTP"
 fi
  
+if [ -r /etc/postfix/.secure/passwd ]; then
+  ## Does SELinux allow this?
+  cat /etc/postfix/.secure/passwd >> /etc/passwd
+fi
+
 /usr/lib/postfix/master &
 rsyslogd -n
