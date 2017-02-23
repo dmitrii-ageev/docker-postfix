@@ -26,4 +26,4 @@ docker rmi -f dmitriiageev/postfix:latest
 docker rmi -f dmitriiageev/postfix:$PREVIOUS_VERSION 
 
 docker build -t dmitriiageev/postfix:$VERSION -t dmitriiageev/postfix:latest .
-echo
+docker volume rm $(docker volume ls -q)
