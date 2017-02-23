@@ -21,9 +21,18 @@ if [ ! -z "$1" ]; then
   postconf -e smtpd_banner="${SERVERNAME} ESMTP"
 fi
  
-if [ -r /etc/postfix/.secure/passwd ]; then
-  ## Does SELinux allow this?
-  cat /etc/postfix/.secure/passwd >> /etc/passwd
+# Add users which can be passed as other arguments in form username:password
+if [ $# -gt 2 ]; then
+  for ((i=3; i<=$#; i++)); do
+    eval PAIR=( \$$i )
+    if [ "$PAIR" != "${PAIR/://}" ]; then
+      USER=$(echo $PAIR | cut -d: -f1)
+      useradd $USER
+      echo $PAIR | chpasswd
+      mkdir -p -m 2770 /var/mail/$USER
+      chown -R $USER:mail /var/mail/$USER
+    fi
+  done
 fi
 
 /usr/lib/postfix/master &
