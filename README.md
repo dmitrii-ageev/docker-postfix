@@ -9,7 +9,7 @@ Using the pre-built image from docker hub, you can start your email server by ru
 $ docker run \
 --name postfix \
 -detach \
---publish 25:25/tcp \
+--publish 25:2525/tcp \
 --volume /local/maildir:/var/mail \
 --volume /local/log/storage:/var/log \
 docker-postfix my_domain_name.com my_host.domain_name.com

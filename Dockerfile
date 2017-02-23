@@ -1,5 +1,5 @@
 FROM debian:stable-slim
-MAINTAINER Dmitrii Ageev <d.ageev@gmail.com>
+LABEL maintainer "Dmitrii Ageev <d.ageev@gmail.com>"
 
 # Declare variables
 ## You can specify the DOMAINNAME and SERVERNAME during container build time with the --build-arg option
@@ -53,8 +53,9 @@ ADD files/rsyslog.conf /etc/rsyslog.conf
 ADD start.sh /start.sh
 
 # Postfix ports
-## TCP:25  - SMPT
-EXPOSE 25/tcp
+## TCP:2525  - SMPT
+RUN sed -i "s/^smtp\(\s\+inet\)/2525\1/" /etc/postfix/master.cf
+EXPOSE 2525/tcp
 
 VOLUME /etc/postfix
 VOLUME /var/mail
