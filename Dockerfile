@@ -56,7 +56,7 @@ ADD start.sh /start.sh
 ## TCP:25  - SMPT
 EXPOSE 25/tcp
 
-VOLUME /etc
+VOLUME /etc/postfix
 VOLUME /var/mail
 VOLUME /var/log
 
