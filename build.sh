@@ -22,8 +22,8 @@ else
   VERSION="$MAJOR.$MINOR.$BUILD"
 fi
 
-docker rmi -f dmitriiageev/postfix:latest
-docker rmi -f dmitriiageev/postfix:$PREVIOUS_VERSION
+docker rmi -f dmitriiageev/postfix:latest 
+docker rmi -f dmitriiageev/postfix:$PREVIOUS_VERSION 
 
 docker build -t dmitriiageev/postfix:$VERSION -t dmitriiageev/postfix:latest .
 echo
