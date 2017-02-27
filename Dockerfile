@@ -1,4 +1,3 @@
-#FROM ubuntu:14.04
 FROM debian:stable-slim
 LABEL maintainer "Dmitrii Ageev <d.ageev@gmail.com>"
 
@@ -37,7 +36,7 @@ RUN postconf -e myhostname="${SERVERNAME}"; \
     postconf -e alias_maps="hash:/etc/aliases"; \
 # Don't talk to mail systems that don't know their own hostname or have an invalid hostname.
     postconf -e smtpd_helo_required="yes"; \
-    postconf -e smtpd_helo_restrictions="permit_sasl_authenticated, permit_mynetworks, reject_invalid_hostname, reject_unauth_pipelining, reject_non_fqdn_hostname"; \
+    postconf -e smtpd_helo_restrictions="permit_sasl_authenticated, permit_mynetworks, reject_unknown_helo_hostname, reject_invalid_hostname, reject_unauth_pipelining, reject_non_fqdn_hostname"; \
 # Don't accept mail from domains that don't exist.
     postconf -e smtpd_sender_restrictions="reject_unknown_sender_domain"; \
 # Relay control: local clients and authenticated clients may specify any destination domain.
