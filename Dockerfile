@@ -17,12 +17,14 @@ ENV DEBIAN_FRONTEND noninteractive
 RUN apt-get -q update; \
     apt-get -y --force-yes install \
     rsyslog \
+    openssl \
     postfix 
 
 # Configure Postfix
 ADD files/aliases /etc/aliases
 RUN newaliases
 
+## Base settings
 RUN postconf -e myhostname="${SERVERNAME}"; \
     postconf -e mydestination="${MY_DESTINATION}"; \
     postconf -e inet_interfaces="all"; \
@@ -47,11 +49,18 @@ RUN postconf -e myhostname="${SERVERNAME}"; \
 # Disable chroot environment
     postconf -F '*/*/chroot = n'
 
+## TLS support
+RUN postconf -e smtpd_tls_cert_file="/etc/ssl/certs/ssl-cert-snakeoil.pem"; \
+    postconf -e smtpd_tls_key_file="/etc/ssl/private/ssl-cert-snakeoil.key"; \
+    postconf -e smtpd_use_tls="yes"; \
+    postconf -e smtpd_tls_session_cache_database="btree:${data_directory}/smtpd_scache"; \
+    postconf -e smtp_tls_session_cache_database="btree:${data_directory}/smtp_scache"
+
 # Journaling support
 ADD files/rsyslog.conf /etc/rsyslog.conf
 
 # Add startup script
-ADD start.sh /start.sh
+ADD files/start.sh /start.sh
 
 # Postfix ports
 ## TCP:2525  - SMTP
